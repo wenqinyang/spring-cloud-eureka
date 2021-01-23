@@ -4,7 +4,8 @@ spring:
     name: microservice-discovery-eureka
 eureka:
   client:
-    service-url: http://peer1:8761/eureka/,http://peer2:8762/eureka/
+    service-url:
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8762/eureka
 ---
 spring:
   profiles: peer1
