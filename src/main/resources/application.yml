@@ -1,21 +1,19 @@
+# 精简配置高可用性eureka
 spring:
   application:
     name: microservice-discovery-eureka
-    # 使用 --- 将yml分为三部分
+eureka:
+  client:
+    service-url: http://peer1:8761/eureka/,http://peer2:8762/eureka/
 ---
 spring:
-  profiles: peer1  #指定profile为peer1
-
+  profiles: peer1
 server:
   port: 8761
 eureka:
   instance:
-    hostname: peer1 # 指定当profile=peer1时主机名为peer1
-  client:
-    service-url:
-      defaultZone: http://peer2:8762/eureka/ # 将自己注册到peer2这个eureka上
+    hostname: peer1
 ---
-
 spring:
   profiles: peer2
 server:
@@ -23,10 +21,35 @@ server:
 eureka:
   instance:
     hostname: peer2
-  client:
-    service-url:
-      defaultZone: http://peer1:8761/eureka/
-
+#spring:
+#  application:
+#    name: microservice-discovery-eureka
+#    # 使用 --- 将yml分为三部分
+#---
+#spring:
+#  profiles: peer1  #指定profile为peer1
+#
+#server:
+#  port: 8761
+#eureka:
+#  instance:
+#    hostname: peer1 # 指定当profile=peer1时主机名为peer1
+#  client:
+#    service-url:
+#      defaultZone: http://peer2:8762/eureka/ # 将自己注册到peer2这个eureka上
+#---
+#
+#spring:
+#  profiles: peer2
+#server:
+#  port: 8762
+#eureka:
+#  instance:
+#    hostname: peer2
+#  client:
+#    service-url:
+#      defaultZone: http://peer1:8761/eureka/
+#
 
       #client:
     #register-with-eureka: false #是否将自己注册到eureka server上 默认为true
@@ -35,3 +58,4 @@ eureka:
       #defaultZone: http://localhost:8761/eureka # 设置和eureka server交互地址,多个地址间可以使用,分隔
   #server:
     #enable-self-preservation: false
+
